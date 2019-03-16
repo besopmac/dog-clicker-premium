@@ -5,14 +5,14 @@
  * 
  */
 
-(function(){
-
-    // Model
-    const data = [
+// Model
+let data = {
+    currentDog: null,
+    dogs: [
         {
             id: 0,
             clicks: 0,
-            name: 'Barney',
+            name: 'Marshal',
             image: 'https://placedog.net/900/650/?id=64'
         },
         {
@@ -39,58 +39,104 @@
             name: 'Oliver',
             image: 'https://placedog.net/900/650/?id=73'
         }
-    ]
+    ]    
+}
 
-    // Octopus
-    let octopus = {
-        createNav: function() {
-            for (let i = 0; i < data.length; i++) {
-                let item = data[i];
-                
-                let elem = document.createElement('a');
-                elem.classList = 'link';
-                elem.textContent = item.name;
+// Octopus
+let octopus = {
 
-                elem.addEventListener('click', function(e) {
-                    this.showDog(item.id);
-                });
-            }
-        },
+    init: function() {
+        // The first dog...
+        data.currentDog = data.dogs[0];
 
-        showDog: function(target) {
-            console.log(`clicked on ${target}`);
-        },
+        // Start the views...
+        dogListView.init();
+        dogView.init();
+    },
 
-        init: function() {
-            view.init();
+    getCurrentDog: function() {
+        return data.currentDog;
+    },
+
+    getAllDogs: function() {
+        return data.dogs;
+    },
+
+    setCurrentDog: function(dog) {
+        data.currentDog = dog;
+    },
+
+    incrementCounter: function() {
+        data.currentDog.clicks++;
+        dogView.render();
+    }
+
+}
+
+// Views    
+let dogView = {
+
+    init: function() {
+        // Get the DOM elements
+        this.dogName = document.querySelector('.name');
+        this.dogImage = document.querySelector('.dog-image');
+        this.dogCounter = document.querySelector('.counter');
+        
+        // When click, then increment this dog counter
+        this.dogImage.addEventListener('click', function() {
+            octopus.incrementCounter();
+        });
+
+        // So... render it.
+        this.render();
+    },
+    
+    render: function() {
+        let currentDog = octopus.getCurrentDog();
+        this.dogImage.src = currentDog.image;
+        this.dogName.textContent = currentDog.name;
+        this.dogCounter.textContent = currentDog.clicks;
+    }
+
+}
+
+let dogListView = {
+
+    init: function() {
+        // Get the DOM elements
+        this.wrapper = document.querySelector('.menu');
+
+        // So... render it.
+        this.render();
+    },
+
+    render: function() {
+        let dog, elem, i;
+        
+        // Getting all dogs via octopus
+        let dogs = octopus.getAllDogs();
+
+        // Cleaning the menu wrapper
+        this.wrapper.innerHTML = '';
+
+        // Looping for filter all those dogs...
+        for (i = 0; i < dogs.length; i++) {
+
+            dog = dogs[i];
+
+            // Create the <a> element and to fill it
+            elem = document.createElement('a');
+            elem.textContent = dog.name;
+            elem.className = 'link';
+
+
+            this.wrapper.appendChild(elem);
         }
     }
 
-    // View
-    let view = {
-        init: function() {
-            let nav = document.querySelector('.menu');
-            let view = document.querySelector('.view');
-            this.dogTemplate = document.querySelector('[data-template="dogview"]').innerHTML;
+}
 
-            
 
-            this.render();
-        },
 
-        render: function() {
-            let figure = this.dogTemplate;
-
-            let thisTemplate = '';
-
-            thisTemplate += figure.replace(/{{id}}/g, pizza.id)
-                            figure.replace()
-
-            view.append(thisTemplate);
-
-        }
-    }
-
-    // Start your engines!
-    octopus.init();
-})();
+// Start your engines!
+octopus.init();

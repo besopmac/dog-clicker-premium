@@ -54,19 +54,26 @@ body {
 }
 
 .link {
-    color: #fff;
     line-height: 3;
     font-weight: 500;
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
-    text-shadow: 0 2px .25em rgba(0, 0, 0, 0.3);
-    background: linear-gradient(to top, #bebebe, #dee2e6);
+    color: rgb(120, 120, 120);
+    background-color: rgb(230, 230, 230);
+}
+
+.link:hover {
+    background-color: rgb(220, 220, 220);
 }
 
 .view {
     display: flex;
     flex-direction: column;
+}
+
+.image {
+    position: relative;
 }
 
 .image > img {
@@ -78,7 +85,7 @@ body {
 .name,
 .title,
 .counter {
-    color: #a7a6a7;
+    color: #333333;
     font-weight: 200;
     font-family: 'Oswald', sans-serif;
 }
@@ -92,5 +99,23 @@ body {
     display: flex;
     font-size: 2rem;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+}
+
+.counter {
+    top: .35rem;
+    right: .35rem;
+    position: absolute;
+
+    display: table;
+    padding: .25em .4em;
+    font-weight: 500;
+    line-height: 1;
+    font-size: 1.5em;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    background-color: rgb(230, 57, 27);
+    color: rgb(255, 255, 255);
 }
