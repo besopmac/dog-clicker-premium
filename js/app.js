@@ -13,31 +13,31 @@ let data = {
             id: 0,
             clicks: 0,
             name: 'Marshal',
-            image: 'https://placedog.net/900/650/?id=64'
+            image: './images/marshal.jpg'
         },
         {
             id: 1,
             clicks: 0,
             name: 'Pancake',
-            image: 'https://placedog.net/900/650/?id=38'
+            image: './images/pancake.jpg'
         },
         {
             id: 2,
             clicks: 0,
             name: 'Pepper',
-            image: 'https://placedog.net/900/650/?id=22'
+            image: './images/pepper.jpg'
         },
         {
             id: 3,
             clicks: 0,
             name: 'Blueberry',
-            image: 'https://placedog.net/900/650/?id=17'
+            image: './images/blueberry.jpg'
         },
         {
             id: 4,
             clicks: 0,
             name: 'Oliver',
-            image: 'https://placedog.net/900/650/?id=73'
+            image: './images/oliver.jpg'
         }
     ]    
 }
@@ -129,6 +129,13 @@ let dogListView = {
             elem.textContent = dog.name;
             elem.className = 'link';
 
+            // On click setCurrentDog and render dogView...
+            elem.addEventListener('click', (function(dogCopy) {
+                return function() {
+                    octopus.setCurrentDog(dogCopy);
+                    dogView.render();
+                }
+            })(dog))
 
             this.wrapper.appendChild(elem);
         }
